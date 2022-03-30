@@ -1,4 +1,5 @@
 import 'package:final_year_project/screens/splash_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -69,16 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   fontSize: 35,
                                   fontWeight: FontWeight.bold
-                                ),)
+                                  ),
+                                ),
                               ],
-                        ),
                             ),
-                         
-                      
-                 
-                ],
-              ),
-            ),
+                          ),
+                        ],
+                      ),
+                    ),
         
         
           const SizedBox(
@@ -95,13 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     onSubmitted: (_){
                       FocusScope.of(context).requestFocus(passFocusNode);
                     },
-                 decoration: const InputDecoration(  
+                  decoration: const InputDecoration(  
                   labelText: "Email",  
-                    labelStyle: TextStyle(color: Colors.black),
-                enabledBorder: UnderlineInputBorder(      
+                  labelStyle: TextStyle(color: Colors.black),
+                  enabledBorder: UnderlineInputBorder(      
                   borderSide: BorderSide(color: Colors.orange),   
-                )),                   
                 ),
+              ),                   
+            ),
         
         
                 const SizedBox(
@@ -110,14 +110,14 @@ class _LoginScreenState extends State<LoginScreen> {
         
         
                TextField(
-               
-               focusNode: passFocusNode,
-                decoration: const InputDecoration(  
+                  focusNode: passFocusNode,
+                  decoration: const InputDecoration(  
                   labelText: "Password",  
                   labelStyle: TextStyle(color: Colors.black),    
-                enabledBorder: UnderlineInputBorder(      
+                  enabledBorder: UnderlineInputBorder(      
                   borderSide: BorderSide(color: Colors.orange),   
-                )),
+                  ),
+                 ),
                 ),
                 
                 const SizedBox(
@@ -131,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                const Text("Don't have an account?",
                style: TextStyle(
                  color: Colors.grey
-               ),),
+                 ),
+               ),
 
               const SizedBox(
                 width: 8,
@@ -141,13 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 GestureDetector(
                   child: const Text("Sign UP",
                   style: TextStyle(
+                    decoration: TextDecoration.underline,
                  color: Colors.orange
-               ),),
+                  ),
+                ),
                   onTap: (){
                     Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (BuildContext context) => const RegisterScreen()));
-                  },
-                ),
+                    },
+                  ),
                 ],
               ),
 
@@ -164,16 +167,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     
                 child: const Text('Login'),
                 onPressed: () {},
-            ),
-              ),
-                ],
-              )
-            ),
-            ],
+                     ),
+                   ),
+                 ],
+               ),
+             ),
+           ],
           ),
         ),
-
-        
       ),
     );
   }

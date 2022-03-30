@@ -8,6 +8,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  
+  final formkey=GlobalKey<FormState>();
 
   late FocusNode ageFocusNode;
   late FocusNode EmailFocusNode;
@@ -112,9 +114,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width*.8,
                 child: Column(
+                  key: formkey,
                   children:  [
-                    TextField(
                     
+                    TextField(
+                      
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(ageFocusNode);
                       },
@@ -133,6 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       
                   TextField(
+                    
                     focusNode: ageFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(EmailFocusNode);
@@ -152,6 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
                   TextField(
+                    
                     focusNode: EmailFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(AddressFocusNode);
@@ -171,6 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
                   TextField(
+                    
                     focusNode: AddressFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(PhoneFocusNode);
@@ -190,6 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
                   TextField(
+                    
                     focusNode: PhoneFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(PassFocusNode);
@@ -210,6 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
                   TextField(
+                    
                       focusNode: PassFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(RadioFocusNode);
@@ -242,7 +251,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       Transform.scale(
                         scale: 1.5,
-                        child: Radio(value: "notified", groupValue: _radioValue, onChanged: (value)=>_handleRadioValueChange(value), activeColor: Colors.orange,)),
+                        child: Radio(
+                          
+                          value: "notified", groupValue: _radioValue, onChanged: (value)=>_handleRadioValueChange(value), activeColor: Colors.orange,)),
                       const Text("Notified"),
                     ],
                   ),
