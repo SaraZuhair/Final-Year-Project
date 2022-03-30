@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
+import 'package:final_year_project/screens/profile.dart';
 import 'package:final_year_project/screens/splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -14,7 +18,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
    late FocusNode passFocusNode;
-
+   final emailcontroller=TextEditingController();
+   final passwordcontroller=TextEditingController();
 
  @override
   void initState(){
@@ -90,7 +95,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children:  [
                   TextField(
-             
+                    
+                    controller: emailcontroller,
                     onSubmitted: (_){
                       FocusScope.of(context).requestFocus(passFocusNode);
                     },
@@ -110,6 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
         
         
                TextField(
+                 
+                   
+                 
+                 controller: passwordcontroller,
                   focusNode: passFocusNode,
                   decoration: const InputDecoration(  
                   labelText: "Password",  
@@ -117,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   enabledBorder: UnderlineInputBorder(      
                   borderSide: BorderSide(color: Colors.orange),   
                   ),
+                  
                  ),
                 ),
                 
@@ -166,7 +177,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
                     
                 child: const Text('Login'),
-                onPressed: () {},
+                onPressed: () {
+                  FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: emailcontroller.text, password: passwordcontroller.text).then((value){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>profile()),);},
+                    ).onError((error, stackTrace) {
+                      throw(error.toString());
+                    });
+                  },
+                  
+                  
                      ),
                    ),
                  ],

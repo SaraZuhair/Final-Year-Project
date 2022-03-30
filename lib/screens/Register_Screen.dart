@@ -1,5 +1,7 @@
 import 'package:final_year_project/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({ Key? key }) : super(key: key);
 
@@ -10,6 +12,15 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   
   final formkey=GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  final namecontroller=TextEditingController();
+  final agecontroller=TextEditingController();
+  final emailcontroller=TextEditingController();
+  final addresscontroller=TextEditingController();
+  final phonecontroller=TextEditingController();
+  final passwordcontroller=TextEditingController();
+  final usertypecontroller=TextEditingController();
+  
 
   late FocusNode ageFocusNode;
   late FocusNode EmailFocusNode;
@@ -95,11 +106,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Color(0xffFCB234),
                     ),
                     ),
-      
+            
                     const SizedBox(
                       height: 20,
                     ),
-      
+            
                     
                       
                     
@@ -118,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children:  [
                     
                     TextField(
-                      
+                      controller: namecontroller,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(ageFocusNode);
                       },
@@ -130,14 +141,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   )),                   
                   ),
                   
-
+        
                   const SizedBox(
                       height: 15,
                     ),
-
-      
+        
+            
                   TextField(
-                    
+                    controller: agecontroller,
                     focusNode: ageFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(EmailFocusNode);
@@ -150,14 +161,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     borderSide: BorderSide(color: Colors.orange),   
                   )),                   
                   ),
-
+        
                   const SizedBox(
                       height: 15,
                     ),
-
-
+        
+        
                   TextField(
-                    
+                    controller: emailcontroller,
                     focusNode: EmailFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(AddressFocusNode);
@@ -170,14 +181,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     borderSide: BorderSide(color: Colors.orange),   
                   )),                   
                   ),
-
+        
                   const SizedBox(
                       height: 15,
                     ),
-
-
+        
+        
                   TextField(
-                    
+                    controller: addresscontroller,
                     focusNode: AddressFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(PhoneFocusNode);
@@ -190,35 +201,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     borderSide: BorderSide(color: Colors.orange),   
                   )),                   
                   ),
-
+        
                   const SizedBox(
                       height: 15,
                     ),
-
-
+        
+        
                   TextField(
-                    
+                    controller: phonecontroller,
                     focusNode: PhoneFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(PassFocusNode);
                       },
                      keyboardType: TextInputType.number,
-                   decoration: const InputDecoration(  
+                  decoration: const InputDecoration(  
                     hintText: "phone",  
-                      labelStyle: TextStyle(color: Colors.black),
-                  enabledBorder: UnderlineInputBorder(      
+                    labelStyle: TextStyle(color: Colors.black),
+                    enabledBorder: UnderlineInputBorder(      
                     borderSide: BorderSide(color: Colors.orange),   
                   )),                   
                   ),
-
+        
                   const SizedBox(
                       height: 15,
                     ),
-
-
-
+        
+        
+        
                   TextField(
-                    
+                    controller: passwordcontroller,
                       focusNode: PassFocusNode,
                       onSubmitted: (_){
                         FocusScope.of(context).requestFocus(RadioFocusNode);
@@ -231,38 +242,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     borderSide: BorderSide(color: Colors.orange),   
                   )),                   
                   ),
-
+        
                   const SizedBox(
                       height: 15,
                     ),
-
+        
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                         const Text("User Type:", style: TextStyle(fontSize: 20),),
                        Transform.scale(
+                         
                          scale: 1.5,
                          child: Radio(
+                           
                            focusNode: RadioFocusNode,
-                           value: "Main", groupValue: _radioValue, onChanged: (value)=>_handleRadioValueChange(value),activeColor: Colors.orange,)),
+                           value: "main", 
+                           groupValue: _radioValue, 
+                           onChanged: (value)=>_handleRadioValueChange(value),activeColor: Colors.orange,
+                           ),
+                          ),
                        const Text("Main"),
-
+        
                        const SizedBox(width: 5,),
-
+        
                       Transform.scale(
                         scale: 1.5,
                         child: Radio(
                           
-                          value: "notified", groupValue: _radioValue, onChanged: (value)=>_handleRadioValueChange(value), activeColor: Colors.orange,)),
+                          value: "notified",
+                          groupValue: _radioValue, 
+                          onChanged: (value)=>_handleRadioValueChange(value), 
+                          activeColor: Colors.orange,
+                          )
+                        ),
                       const Text("Notified"),
                     ],
                   ),
-
-
+        
+        
                   const SizedBox(
                       height: 25,
                     ),
-
+        
               SizedBox(
                 width: 100,
                 height: 40,
@@ -274,9 +296,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     
                 child: const Text('Sign UP'),
                 onPressed: () {
-                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()));
-
+                  FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: emailcontroller.text, password: passwordcontroller.text
+                    ).then((value) => {
+                      print("user created"),
+                      Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()))
+                    }).onError((error, stackTrace) {
+                      throw(error.toString());
+                    }) ;
+                   
+        
                 },
             ),
               ),
