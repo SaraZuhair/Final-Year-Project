@@ -1,11 +1,7 @@
-import 'dart:ffi';
+
 
 import 'package:final_year_project/screens/profile.dart';
-import 'package:final_year_project/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'Register_Screen.dart';
@@ -23,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
  @override
   void initState(){
-    // TODO: implement initState
+   
     super.initState();
 
     passFocusNode=FocusNode();
@@ -31,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+  
     passFocusNode.dispose();
     super.dispose();
   }
@@ -89,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 50,
           ),
         
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height*0.4,
               width: MediaQuery.of(context).size.width*.8,
               child: Column(
@@ -180,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: emailcontroller.text, password: passwordcontroller.text).then((value){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>profile()),);},
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const Profile()),);},
                     ).onError((error, stackTrace) {
                       throw(error.toString());
                     });

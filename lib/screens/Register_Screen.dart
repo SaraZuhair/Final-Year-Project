@@ -1,6 +1,7 @@
 import 'package:final_year_project/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({ Key? key }) : super(key: key);
@@ -11,29 +12,37 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   
+   
   final formkey=GlobalKey<FormState>();
-  final _auth = FirebaseAuth.instance;
-  final namecontroller=TextEditingController();
-  final agecontroller=TextEditingController();
-  final emailcontroller=TextEditingController();
-  final addresscontroller=TextEditingController();
-  final phonecontroller=TextEditingController();
-  final passwordcontroller=TextEditingController();
-  final usertypecontroller=TextEditingController();
+  final auth = FirebaseAuth.instance;
+  final TextEditingController namecontroller=TextEditingController();
+  final TextEditingController agecontroller=TextEditingController();
+  final TextEditingController emailcontroller=TextEditingController();
+  final TextEditingController addresscontroller=TextEditingController();
+  final TextEditingController phonecontroller=TextEditingController();
+  final TextEditingController passwordcontroller=TextEditingController();
+  final TextEditingController usertypecontroller=TextEditingController();
   
 
   late FocusNode ageFocusNode;
+  // ignore: non_constant_identifier_names
   late FocusNode EmailFocusNode;
+  // ignore: non_constant_identifier_names
   late FocusNode AddressFocusNode;
+  // ignore: non_constant_identifier_names
   late FocusNode PhoneFocusNode;
+  // ignore: non_constant_identifier_names
   late FocusNode PassFocusNode;
+  // ignore: non_constant_identifier_names
   late FocusNode RadioFocusNode;
   String _radioValue ="";
+
+  var index;
 
 
    @override
   void initState(){
-    // TODO: implement initState
+    
     super.initState();
 
     ageFocusNode=FocusNode();
@@ -46,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    
     ageFocusNode.dispose();
     EmailFocusNode.dispose();
     AddressFocusNode.dispose();
@@ -56,21 +65,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  void _handleRadioValueChange( value) {
-    setState(() {
-      _radioValue = value;
+  
 
-      switch (_radioValue) {
-        case "Main":
-          break;
-        case "Notified":
-          break;
-      }
-    });
-  }
+bool usertype=true;
+  
 
   @override
   Widget build(BuildContext context) {
+    
+
+    CollectionReference user = FirebaseFirestore.instance.collection('UserData');
+
+  Future<void>adduser(){
+    return user.add(
+      {
+      "name":namecontroller.text,
+      "age":agecontroller.text,
+       "password": passwordcontroller.text,
+       "address": addresscontroller.text,
+       "phone": phonecontroller.text,
+       "usertype": usertype ? "Main" : "Notified",
+      }
+    ).then((value) => print("added to firestore"))
+     .catchError((error)=> print(error),
+    
+    
+    );
+  }
+
+
+
+
     return Scaffold(
       
       body: SingleChildScrollView(
@@ -121,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 )
               ],
             ),
-             Container(
+             SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width*.8,
                 child: Column(
@@ -251,32 +276,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                         const Text("User Type:", style: TextStyle(fontSize: 20),),
-                       Transform.scale(
-                         
-                         scale: 1.5,
-                         child: Radio(
-                           
-                           focusNode: RadioFocusNode,
-                           value: "main", 
-                           groupValue: _radioValue, 
-                           onChanged: (value)=>_handleRadioValueChange(value),activeColor: Colors.orange,
-                           ),
-                          ),
-                       const Text("Main"),
-        
-                       const SizedBox(width: 5,),
-        
+
+                         Transform.scale(
+                           scale: 1.5,
+                           child: Radio<int>(
+                            value: 0,
+                            groupValue: index,
+                            onChanged: (val) {
+                              setState(() {
+                                index = val!;
+                                usertype = false;
+                              });
+                            },
+                            activeColor: Colors.orange,
+                            ),
+                            
+                         ),
+                      const Text(
+                        'Notified',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+
+                      const SizedBox(width: 5,),
+
+
                       Transform.scale(
                         scale: 1.5,
-                        child: Radio(
-                          
-                          value: "notified",
-                          groupValue: _radioValue, 
-                          onChanged: (value)=>_handleRadioValueChange(value), 
-                          activeColor: Colors.orange,
-                          )
-                        ),
-                      const Text("Notified"),
+                        child: Radio<int>(
+                            value: 1,
+                            groupValue: index,
+                            onChanged: (val) {
+                              setState(() {
+                                index = val!;
+                                usertype = true;
+                              });
+                            },
+                            activeColor: Colors.orange,
+                            ),
+                      ),
+                      const Text(
+                        'Main',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
                     ],
                   ),
         
@@ -297,9 +340,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: const Text('Sign UP'),
                 onPressed: () {
                   FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: emailcontroller.text, password: passwordcontroller.text
+                    email: emailcontroller.text, 
+                    password: passwordcontroller.text
                     ).then((value) => {
-                      print("user created"),
+                      // FirebaseFirestore.instance.collection('UserData').doc(value.user?.uid).set(
+                      //   "email" : value.user?.email, ),
+                      // print("user created"),
+
+                      adduser(),
+
+                      
+                      
                       Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()))
                     }).onError((error, stackTrace) {
