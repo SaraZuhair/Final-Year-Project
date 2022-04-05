@@ -35,8 +35,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late FocusNode PassFocusNode;
   // ignore: non_constant_identifier_names
   late FocusNode RadioFocusNode;
-  String _radioValue ="";
+  // String _radioValue ="";
 
+  // ignore: prefer_typing_uninitialized_variables
   var index;
 
 

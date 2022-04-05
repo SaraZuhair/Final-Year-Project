@@ -1,5 +1,6 @@
 
 
+import 'package:final_year_project/screens/choose.dart';
 import 'package:final_year_project/screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -176,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: emailcontroller.text, password: passwordcontroller.text).then((value){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const Profile()),);},
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Choose(currentindex: 3),),);},
                     ).onError((error, stackTrace) {
                       throw(error.toString());
                     });
