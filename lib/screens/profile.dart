@@ -25,9 +25,12 @@ class _ProfileState extends State<Profile> {
             Row(
               children: [
                 Container(
+                  
                   height: MediaQuery.of(context).size.height*0.2,
                   width: MediaQuery.of(context).size.width,
+                  
                    decoration: const BoxDecoration(
+                    
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40), bottomRight: Radius.circular(20,)),
                 color: Color(0xffFCB234),
               ),
@@ -41,7 +44,7 @@ class _ProfileState extends State<Profile> {
                       Image.asset("assets/images/logo.png", height: 80, width: 80,)],),
                   
 
-                      const SizedBox(height: 5,),
+                     
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -65,17 +68,37 @@ class _ProfileState extends State<Profile> {
                              fontWeight: FontWeight.bold
                            ),),
                         ],
-                      )
-                    
+                      ),
+
+                       
                 ],
               ),
-                )
+                ),
+                 
+               
               ],
-            )
+            ),
+                  
+                    
+       
+                              ClipOval(
+                                
+                                child: Container(
+                                
+                                  height: 50,
+                                  width: 50,
+                                  color: Colors.white,
+                                  
+                                  child:Image.asset("assets/images/profileperson.png"),
+                                ),
+                              ),
           ],
+                          )
+                   
+          
         ),
         
-      ));
+      );
 
     
     

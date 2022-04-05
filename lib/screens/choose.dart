@@ -36,10 +36,10 @@ class _ChooseState extends State<Choose> {
         
         backgroundColor: Colors.transparent,
         items: const <Widget>[
-        Icon(Icons.home,),
-        Icon(Icons.calendar_month),
-        Icon(Icons.chat),
-        Icon(Icons.person),
+        Icon(Icons.home,size: 30,),
+        Icon(Icons.calendar_month,size: 30,),
+        Icon(Icons.chat,size: 30,),
+        Icon(Icons.person,size: 30,),
       ],
       color: const Color(0xffFCB234),
       height: 70,
