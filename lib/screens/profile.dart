@@ -1,7 +1,5 @@
-import 'package:final_year_project/notiprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/userprv.dart';
 
 class Profile extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:final_year_project/notiprofile.dart';
 import 'package:final_year_project/screens/choose.dart';
+import 'package:final_year_project/screens/notifchoose.dart';
 import 'package:final_year_project/screens/profile.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -190,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           builder: (_) => Choose(
                                             currentindex: 3,
                                           ),
-                                        )):Navigator.of(context).push(MaterialPageRoute(builder: ((context) => Notifiedprofile()))),
+                                        )):Navigator.of(context).push(MaterialPageRoute(builder: ((context) => NotifiedChoose(currentindex: 1)))),
                                       );
                             
 

@@ -19,6 +19,11 @@ class UserProvider extends ChangeNotifier {
       required this.usertype
       });
 
+
+
+
+
+
   Future<void> getUser(email, password) async {
    
     await FirebaseFirestore.instance
@@ -37,11 +42,9 @@ class UserProvider extends ChangeNotifier {
           usertype=data['usertype'];
           
         }
-      });
-    });
-   
+       }
+      );
+     }
+   );
   }
-
-
-     
-}
+ }
