@@ -11,7 +11,7 @@ void main() async{
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => UserProvider(address: '', age: '', email: '', name: '', phone: ''),
+          create: (_) => UserProvider(address: '', age: '', email: '', name: '', phone: '', usertype: ''),
         ),
       ],
       child:const MyApp()

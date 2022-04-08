@@ -7,8 +7,13 @@ import 'chat.dart';
 import 'home.dart';
 
 class Choose extends StatefulWidget {
+    // ignore: prefer_typing_uninitialized_variables
     var currentindex;
-   Choose({ Key? key, required this.currentindex }) : super(key: key);
+    // String email;
+    // String pass;
+
+
+   Choose({Key? key, required this.currentindex} ) : super(key: key);
 
   @override
   State<Choose> createState() => _ChooseState();
@@ -23,7 +28,7 @@ class _ChooseState extends State<Choose> {
     const Home(),
     const Schedule(),
     const Chat(),
-    const Profile(),
+     const Profile( ),
    
   ];
   @override

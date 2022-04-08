@@ -1,7 +1,8 @@
-import 'package:final_year_project/screens/login_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_year_project/screens/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({ Key? key }) : super(key: key);
@@ -85,6 +86,7 @@ bool usertype=true;
        "password": passwordcontroller.text,
        "address": addresscontroller.text,
        "phone": phonecontroller.text,
+       "email":emailcontroller.text,
        "usertype": usertype ? "Main" : "Notified",
       }
     ).then((value) => print("added to firestore"))

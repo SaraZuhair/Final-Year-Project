@@ -14,7 +14,7 @@ class _HomeState extends State<Home> {
 
       appBar: AppBar(
         title: const Center(
-        child:const Text("Home Page")
+        child: Text("Home Page")
         ),
       ),
       
