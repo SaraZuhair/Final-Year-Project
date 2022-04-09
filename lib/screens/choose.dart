@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'chat.dart';
 import 'home.dart';
 
+// ignore: must_be_immutable
 class Choose extends StatefulWidget {
     // ignore: prefer_typing_uninitialized_variables
     var currentindex;

@@ -1,8 +1,5 @@
-import 'package:final_year_project/notiprofile.dart';
 import 'package:final_year_project/screens/choose.dart';
 import 'package:final_year_project/screens/notifchoose.dart';
-import 'package:final_year_project/screens/profile.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,17 +36,17 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context);
    
-    checkuser(){
-     if(user.usertype=="Main"){
-       Navigator.of(context).push(MaterialPageRoute(
-         builder: ((context) => const Profile())));
-      }
-    else if(user.usertype=="Notified"){
-       Navigator.of(context).push(MaterialPageRoute(
-         builder: ((context) => const Notifiedprofile())));
-   }
+  //   checkuser(){
+  //    if(user.usertype=="Main"){
+  //      Navigator.of(context).push(MaterialPageRoute(
+  //        builder: ((context) => const Profile())));
+  //     }
+  //   else if(user.usertype=="Notified"){
+  //      Navigator.of(context).push(MaterialPageRoute(
+  //        builder: ((context) => const Notifiedprofile())));
+  //  }
    
-   }
+  //  }
    
 
 
@@ -153,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Colors.orange),
                           ),
                           onTap: () {
-                            Navigator.of(context).pushReplacement(
+                            Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         const RegisterScreen()));
