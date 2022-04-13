@@ -86,7 +86,13 @@ class _ProfileState extends State<Profile> {
               ),
             
             const SizedBox(height: 200,),
-            
+              
+              Container(
+              child: const Text("THEMES", style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20
+              ),),
+            ),
         
             SingleChildScrollView(
               child: Container(

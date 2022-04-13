@@ -48,7 +48,12 @@ class _ScheduleState extends State<Schedule> {
        ),     
       ),
 
+
+      
+
       endDrawer:  Drawer(
+
+        
         
         child: SingleChildScrollView(
           child: Column(
@@ -84,7 +89,12 @@ class _ScheduleState extends State<Schedule> {
               ),
             
             const SizedBox(height: 200,),
-            
+             Container(
+              child: const Text("THEMES", style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20
+              ),),
+            ),
         
             SingleChildScrollView(
               child: Container(

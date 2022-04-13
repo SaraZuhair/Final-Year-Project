@@ -37,7 +37,8 @@ class _AddState extends State<Add> {
           ))
         ],
         backgroundColor: const Color(0xffFCB234),
-        title: const Center(child: Text("Add Calendar Information")),
+        title: const Center(
+          child: Text("Add Calendar Information")),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),

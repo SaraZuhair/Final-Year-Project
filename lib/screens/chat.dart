@@ -80,7 +80,12 @@ class _ChatState extends State<Chat> {
             
             const SizedBox(height: 200,),
             
-        
+               Container(
+              child: const Text("THEMES", style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20
+              ),),
+            ),
             SingleChildScrollView(
               child: Container(
                 margin: const EdgeInsets.all(40),
@@ -110,7 +115,11 @@ class _ChatState extends State<Chat> {
                   ),
               ),
             ),
-        
+             
+
+           
+
+
             Container(
               // margin: const EdgeInsets.only(bottom:70),
                 width: MediaQuery.of(context).size.width*0.4,
