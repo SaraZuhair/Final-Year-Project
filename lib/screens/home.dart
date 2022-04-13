@@ -1,4 +1,6 @@
+import 'package:final_year_project/providers/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({ Key? key }) : super(key: key);
@@ -10,6 +12,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+Themechanger theme=Provider.of<Themechanger>(context);
+
     return Scaffold(
 
                 appBar: AppBar(
@@ -90,7 +94,7 @@ class _HomeState extends State<Home> {
                   child: ElevatedButton(
                     
                   
-                  onPressed: (){},
+                  onPressed: ()=>theme.setTheme(ThemeData.light()),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -113,18 +117,19 @@ class _HomeState extends State<Home> {
               ),
             ),
         
-            Container(
+            SizedBox(
               // margin: const EdgeInsets.only(bottom:70),
+              
                 width: MediaQuery.of(context).size.width*0.4,
                 child: ElevatedButton(
                   
                 
-                onPressed: (){},
+                onPressed: ()=> theme.setTheme(ThemeData.dark()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  const [
                    
-                    Text("Dark Theme")
+                    Text("Dark Theme"),
                   ],
                 ),
                   

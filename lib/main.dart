@@ -1,3 +1,4 @@
+import 'package:final_year_project/providers/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import '/screens/splash_screen.dart';
@@ -13,6 +14,11 @@ void main() async{
         ChangeNotifierProvider(
           create: (_) => UserProvider(address: '', age: '', email: '', name: '', phone: '', usertype: ''),
         ),
+
+        ChangeNotifierProvider<Themechanger>(
+          create: (_)=> Themechanger(ThemeData.dark())
+          
+          ),
       ],
       child:const MyApp()
     ),
@@ -25,13 +31,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme=Provider.of<Themechanger>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
+      
+      theme: theme.getTheme(),
+       
+      
       home: const SplashScreen(),
     );
   }
