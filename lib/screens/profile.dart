@@ -50,7 +50,107 @@ class _ProfileState extends State<Profile> {
        ),     
       ),
 
-      endDrawer: const Drawer(),
+      endDrawer:  Drawer(
+        
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              
+              Container(
+               
+                margin: const EdgeInsets.all(70),
+                width: MediaQuery.of(context).size.width*0.4,
+                child: ElevatedButton(
+                  
+                
+                onPressed: (){},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.add),
+                    Text("Add Friend")
+                  ],
+                ),
+                  
+                style: ButtonStyle
+                (
+                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+              
+                  )
+                ),
+                   backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffFCB234),) )
+        
+                ),
+              ),
+            
+            const SizedBox(height: 200,),
+            
+        
+            SingleChildScrollView(
+              child: Container(
+                margin: const EdgeInsets.all(40),
+                  width: MediaQuery.of(context).size.width*0.4,
+                  child: ElevatedButton(
+                    
+                  
+                  onPressed: (){},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      
+                      Text("light Theme")
+                    ],
+                  ),
+                    
+                  style: ButtonStyle
+                  (
+                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                  
+                    )
+                  ),
+                     backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffFCB234),) )
+            
+                  ),
+              ),
+            ),
+        
+            Container(
+              // margin: const EdgeInsets.only(bottom:70),
+                width: MediaQuery.of(context).size.width*0.4,
+                child: ElevatedButton(
+                  
+                
+                onPressed: (){},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                   
+                    Text("Dark Theme")
+                  ],
+                ),
+                  
+                style: ButtonStyle
+                (
+                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+              
+                  )
+                ),
+                   backgroundColor: MaterialStateProperty.all<Color>(Colors.black) )
+        
+                ),
+            )
+        
+             
+            ],
+          ),
+        ),
+      ),
       
       body: 
       SingleChildScrollView(
