@@ -36,17 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context);
    
-  //   checkuser(){
-  //    if(user.usertype=="Main"){
-  //      Navigator.of(context).push(MaterialPageRoute(
-  //        builder: ((context) => const Profile())));
-  //     }
-  //   else if(user.usertype=="Notified"){
-  //      Navigator.of(context).push(MaterialPageRoute(
-  //        builder: ((context) => const Notifiedprofile())));
-  //  }
-   
-  //  }
+ 
    
 
 
