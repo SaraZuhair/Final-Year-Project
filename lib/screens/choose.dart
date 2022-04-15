@@ -2,6 +2,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:final_year_project/screens/profile.dart';
 import 'package:final_year_project/screens/schedule.dart';
+
 import 'package:flutter/material.dart';
 import 'chat.dart';
 import 'home.dart';
@@ -26,7 +27,7 @@ class _ChooseState extends State<Choose> {
   List screen=[
   
     const Home(),
-    const Schedule(),
+    const Scheduleinfo(),
     const Chat(),
      const Profile( ),
    

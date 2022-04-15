@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/theme.dart';
 import '../providers/userprv.dart';
 
 class Profile extends StatefulWidget {
@@ -17,6 +18,9 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context);
+    Themechanger theme=Provider.of<Themechanger>(context);
+print("email ${user.email}");
+print("${user.address}");
 
     return Scaffold(
       appBar: AppBar(
@@ -101,7 +105,7 @@ class _ProfileState extends State<Profile> {
                   child: ElevatedButton(
                     
                   
-                  onPressed: (){},
+                  onPressed: ()=> theme.setTheme(ThemeData.light()),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -130,7 +134,7 @@ class _ProfileState extends State<Profile> {
                 child: ElevatedButton(
                   
                 
-                onPressed: (){},
+                onPressed: ()=> theme.setTheme(ThemeData.dark()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -245,11 +249,11 @@ class _ProfileState extends State<Profile> {
       
                     ),
       
-                    const Card(
+                    Card(
       
                       elevation: 2,
                     child:ListTile(
-                      leading: SizedBox(
+                      leading: const SizedBox(
                         height: 50,
                         width: 50,
       
@@ -257,11 +261,11 @@ class _ProfileState extends State<Profile> {
                           child: Icon(Icons.email, color: Colors.black,),
                           ),
                       ),
-                      // title: Center(
-                      // child:Text(user.email, style: const TextStyle(
-                      //   fontSize: 20,
-                      //   fontWeight: FontWeight.bold,
-                      // ),)),
+                     title: Center(
+                      child:Text(user.email, style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),)),
                     ),
       
                     ),

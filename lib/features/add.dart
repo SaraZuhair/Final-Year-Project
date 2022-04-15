@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import '../providers/schedule.dart';
 
 class Add extends StatefulWidget {
   //  final DateTime selected;
@@ -13,9 +16,31 @@ class Add extends StatefulWidget {
 
 // add to UIZARD
 class _AddState extends State<Add> {
+  final TextEditingController title = TextEditingController();
+  final TextEditingController detail = TextEditingController();
+  final TextEditingController schedule = TextEditingController();
   final formkey = GlobalKey<FormBuilderState>();
+
+  CollectionReference calendar =
+      FirebaseFirestore.instance.collection('calendar');
+
+  Future<void> addschedule() {
+    return calendar
+        .add({
+          "title": title.text,
+          "detail": detail.text,
+          "date": schedule.text,
+        })
+        .then((value) => print("added to firestore"))
+        .catchError(
+          (error) => print(error),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
+    var clndr = Provider.of<Schedule>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -32,13 +57,20 @@ class _AddState extends State<Add> {
             style: ElevatedButton.styleFrom(
               primary: Colors.transparent,
             ),
-            onPressed: () async {},
+            onPressed: () async {
+              addschedule();
+              clndr.calendarList.add({
+                'titleinfo': title.text,
+                'dateinfo': schedule.text,
+                'detailinfo': detail.text
+              });
+              clndr.notifyListeners();
+            },
             child: const Text("Save"),
           ))
         ],
         backgroundColor: const Color(0xffFCB234),
-        title: const Center(
-          child: Text("Add Calendar Information")),
+        title: const Center(child: Text("Add Calendar Information")),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -47,6 +79,7 @@ class _AddState extends State<Add> {
               child: Column(
             children: [
               FormBuilderTextField(
+                controller: title,
                 name: "title",
                 decoration: const InputDecoration(
                     hintText: "Add Title",
@@ -58,6 +91,7 @@ class _AddState extends State<Add> {
                 color: Colors.orange,
               ),
               FormBuilderTextField(
+                controller: detail,
                 name: "description",
                 minLines: 1,
                 maxLines: 5,
@@ -70,18 +104,8 @@ class _AddState extends State<Add> {
                 color: Colors.orange,
               ),
               FormBuilderDateTimePicker(
+                controller: schedule,
                 name: "Date",
-                // know what you have to do
-                // then think of a way to do it
-                // not google w youtube
-                // logcs cant be youtubed
-                // you only had to send a simple data (date) in this case to another scree
-                // and if it was null you choose another date nothing more,
-                //which could have been done with either provider which you share data between screens
-                //or this way sending it through a parameter and if it was null incase he didnt choose anything he will use the current date.
-                //you should really devide wthe problem and solve it urself.
-                //plus a widget that can be selected or tapped always has a function on tap or on slected on change etc ..
-                // you can change data from there
                 initialValue: widget.date ?? DateTime.now(),
                 fieldHintText: "Add Date",
                 inputType: InputType.date,
@@ -90,6 +114,65 @@ class _AddState extends State<Add> {
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.calendar_today)),
               ),
+
+              //listview.builder
+
+              const SizedBox(
+                height: 50,
+              ),
+              
+
+              const Text("Your Meal Schedule",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold
+                              ),),
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: 300,
+                  height: 500,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                 
+                      return Container(
+                        
+                        height: MediaQuery.of(context).size.height*0.18,
+                        width: MediaQuery.of(context).size.width*0.7,
+                        child: Card(
+                          shape: const RoundedRectangleBorder(
+                         borderRadius: BorderRadius.all(Radius.circular(15))),
+                            color: const Color(0xffFCB234), 
+                          child: Column(
+                            children: [
+                            Text(
+                              "${clndr.calendarList[index]["titleinfo"]}",
+                              style:
+                                  const TextStyle(color: Colors.black, fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                                  
+                            ),
+                            
+                            const SizedBox(height: 10,),
+                            Text(
+                              "${clndr.calendarList[index]["detailinfo"]}",
+                              style:
+                                  const TextStyle(color: Colors.black, fontSize: 17),
+                            ),
+                              const SizedBox(height: 10,),
+                            Text(
+                              "${clndr.calendarList[index]["dateinfo"]}",
+                              style:
+                                  const TextStyle(color: Colors.black, fontSize: 15),
+                            )
+                            ]
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: clndr.calendarList.length,
+                  ),
+                ),
+              )
             ],
           )),
         ],

@@ -193,11 +193,11 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
 
                     ),
 
-                    const Card(
+                Card(
 
                       elevation: 2,
                     child:ListTile(
-                      leading: SizedBox(
+                      leading: const SizedBox(
                         height: 50,
                         width: 50,
 
@@ -205,11 +205,11 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
                           child: Icon(Icons.email, color: Colors.black,),
                           ),
                       ),
-                      // title: Center(
-                      // child:Text(user.email, style: const TextStyle(
-                      //   fontSize: 20,
-                      //   fontWeight: FontWeight.bold,
-                      // ),)),
+                     title: Center(
+                      child:Text(user.email, style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),)),
                     ),
 
                     ),
@@ -276,9 +276,7 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
                  ),
                 )
                 ]     
-              ),
-            
-          
+              ), 
         ),
     );
   }

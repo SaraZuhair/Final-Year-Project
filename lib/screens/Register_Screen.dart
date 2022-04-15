@@ -346,10 +346,7 @@ bool usertype=true;
                     email: emailcontroller.text, 
                     password: passwordcontroller.text
                     ).then((value) => {
-                      // FirebaseFirestore.instance.collection('UserData').doc(value.user?.uid).set(
-                      //   "email" : value.user?.email, ),
-                      // print("user created"),
-
+                      
                       adduser(),
 
                       

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/theme.dart';
 
 class Chat extends StatefulWidget {
   const Chat({ Key? key }) : super(key: key);
@@ -10,6 +13,7 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
+    Themechanger theme=Provider.of<Themechanger>(context);
     return Scaffold(
 
           appBar: AppBar(
@@ -93,7 +97,7 @@ class _ChatState extends State<Chat> {
                   child: ElevatedButton(
                     
                   
-                  onPressed: (){},
+                  onPressed: ()=> theme.setTheme(ThemeData.light()),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -126,7 +130,7 @@ class _ChatState extends State<Chat> {
                 child: ElevatedButton(
                   
                 
-                onPressed: (){},
+                onPressed: ()=> theme.setTheme(ThemeData.dark()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

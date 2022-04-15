@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/theme.dart';
 
 class NotifiedChat extends StatefulWidget {
   const NotifiedChat({ Key? key }) : super(key: key);
@@ -10,6 +13,7 @@ class NotifiedChat extends StatefulWidget {
 class _NotifiedChatState extends State<NotifiedChat> {
   @override
   Widget build(BuildContext context) {
+    Themechanger theme=Provider.of<Themechanger>(context);
     return Scaffold(
      appBar: AppBar(
         toolbarHeight: 100,
@@ -88,7 +92,7 @@ class _NotifiedChatState extends State<NotifiedChat> {
                   child: ElevatedButton(
                     
                   
-                  onPressed: (){},
+                  onPressed: ()=> theme.setTheme(ThemeData.light()),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -117,7 +121,7 @@ class _NotifiedChatState extends State<NotifiedChat> {
                 child: ElevatedButton(
                   
                 
-                onPressed: (){},
+                onPressed: ()=> theme.setTheme(ThemeData.dark()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
