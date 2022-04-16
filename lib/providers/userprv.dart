@@ -8,16 +8,19 @@ class UserProvider extends ChangeNotifier {
   String email;
   String phone;
   String usertype;
+  int id = 0;
 
-  UserProvider(
-      {required this.name,
-      required this.age,
-      required this.email,
-      required this.address,
-      required this.phone,
-      required this.usertype});
+  UserProvider({
+    required this.name,
+    required this.age,
+    required this.email,
+    required this.address,
+    required this.phone,
+    required this.usertype,
+    required this.id,
+  });
 
-  Future<void> getUser(email, password) async {
+  Future<void> getUser(eml, password) async {
     await FirebaseFirestore.instance
         .collection('UserData')
         .get()
@@ -25,7 +28,8 @@ class UserProvider extends ChangeNotifier {
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
 
-        if (email == data['email'] && password == data['password']) {
+        if (eml == data['email'] && password == data['password']) {
+          id = data["id"];
           name = data['name'];
           age = data['age'];
           address = data['address'];
@@ -35,5 +39,6 @@ class UserProvider extends ChangeNotifier {
         }
       });
     });
+    notifyListeners();
   }
 }

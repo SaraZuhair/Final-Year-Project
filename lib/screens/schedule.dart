@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../providers/schedule.dart';
+import '../providers/userprv.dart';
 
 class Scheduleinfo extends StatefulWidget {
   const Scheduleinfo({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context);
     var clndr = Provider.of<Schedule>(context);
     Themechanger theme = Provider.of<Themechanger>(context);
     return Scaffold(
@@ -174,7 +176,7 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
             Icons.add,
           ),
           onPressed: () async {
-            await clndr.getschedule();
+            await clndr.getschedule(user.id);
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => Add(date: _selectedDay)));
           }),

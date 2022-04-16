@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import '../providers/schedule.dart';
+import '../providers/userprv.dart';
 
 class Add extends StatefulWidget {
   //  final DateTime selected;
@@ -21,25 +22,10 @@ class _AddState extends State<Add> {
   final TextEditingController schedule = TextEditingController();
   final formkey = GlobalKey<FormBuilderState>();
 
-  CollectionReference calendar =
-      FirebaseFirestore.instance.collection('calendar');
-
-  Future<void> addschedule() {
-    return calendar
-        .add({
-          "title": title.text,
-          "detail": detail.text,
-          "date": schedule.text,
-        })
-        .then((value) => print("added to firestore"))
-        .catchError(
-          (error) => print(error),
-        );
-  }
-
   @override
   Widget build(BuildContext context) {
     var clndr = Provider.of<Schedule>(context);
+    var user = Provider.of<UserProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +44,7 @@ class _AddState extends State<Add> {
               primary: Colors.transparent,
             ),
             onPressed: () async {
-              addschedule();
+              clndr.addschedule(title.text, detail.text, schedule.text, user.id );
               clndr.calendarList.add({
                 'titleinfo': title.text,
                 'dateinfo': schedule.text,
@@ -120,52 +106,50 @@ class _AddState extends State<Add> {
               const SizedBox(
                 height: 50,
               ),
-              
 
-              const Text("Your Meal Schedule",
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold
-                              ),),
+              const Text(
+                "Your Meal Schedule",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
               SingleChildScrollView(
                 child: SizedBox(
                   width: 300,
                   height: 500,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                 
                       return Container(
-                        
-                        height: MediaQuery.of(context).size.height*0.18,
-                        width: MediaQuery.of(context).size.width*0.7,
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         child: Card(
                           shape: const RoundedRectangleBorder(
-                         borderRadius: BorderRadius.all(Radius.circular(15))),
-                            color: const Color(0xffFCB234), 
-                          child: Column(
-                            children: [
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          color: const Color(0xffFCB234),
+                          child: Column(children: [
                             Text(
                               "${clndr.calendarList[index]["titleinfo"]}",
-                              style:
-                                  const TextStyle(color: Colors.black, fontSize: 20,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold),
-                                  
                             ),
-                            
-                            const SizedBox(height: 10,),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Text(
                               "${clndr.calendarList[index]["detailinfo"]}",
-                              style:
-                                  const TextStyle(color: Colors.black, fontSize: 17),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 17),
                             ),
-                              const SizedBox(height: 10,),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Text(
                               "${clndr.calendarList[index]["dateinfo"]}",
-                              style:
-                                  const TextStyle(color: Colors.black, fontSize: 15),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 15),
                             )
-                            ]
-                          ),
+                          ]),
                         ),
                       );
                     },

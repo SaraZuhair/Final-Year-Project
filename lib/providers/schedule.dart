@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -6,21 +8,42 @@ class Schedule with ChangeNotifier {
 
   Schedule(this.calendarList);
 
-  Future<void> getschedule() async {
-    calendarList = [];
+  Future<void> addschedule(t, d, s, i) {
+    Random random = new Random();
+    int randomNumber = random.nextInt(10000000);
+    CollectionReference calendar =
+        FirebaseFirestore.instance.collection('calendar');
+    return calendar
+        .add({
+          "title": t,
+          "detail": d,
+          "date": s,
+          'ownerid': i,
+          'id': randomNumber,
+        })
+        .then((value) => print("added to firestore"))
+        .catchError(
+          (error) => print(error),
+        );
+  }
 
+  Future<void> getschedule(ownerid) async {
+    calendarList = [];
     await FirebaseFirestore.instance
         .collection('calendar')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
-
-        calendarList.add({
-          'titleinfo': data['title'],
-          'detailinfo': data['detail'],
-          'dateinfo': data['date'],
-        });
+        if (ownerid == data['ownerid']) {
+          calendarList.add({
+            'titleinfo': data['title'],
+            'detailinfo': data['detail'],
+            'dateinfo': data['date'],
+            'ownerid': data['ownerid'],
+            'id': data['id'],
+          });
+        }
       });
     });
 

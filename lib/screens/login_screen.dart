@@ -35,10 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context);
-   
- 
-   
-
 
     return Scaffold(
       body: SafeArea(
@@ -140,10 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Colors.orange),
                           ),
                           onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        const RegisterScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const RegisterScreen()));
                           },
                         ),
                       ],
@@ -161,7 +156,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(30))),
                         child: const Text('Login'),
                         onPressed: () {
-                          
                           FirebaseAuth.instance
                               .signInWithEmailAndPassword(
                                   email: emailcontroller.text,
@@ -171,17 +165,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               user
                                   .getUser(emailcontroller.text,
                                       passwordcontroller.text)
-                                  .then((value) => user.usertype=='Main'?
-                                  Navigator.of(context).push(
-                                    
-                                        MaterialPageRoute(
-                                          builder: (_) => Choose(
-                                            currentindex: 3,
-                                          ),
-                                        )):Navigator.of(context).push(MaterialPageRoute(builder: ((context) => NotifiedChoose(currentindex: 1)))),
-                                      );
-                            
-
+                                  .then(
+                                    (value) => user.usertype == 'Main'
+                                        ? Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                            builder: (_) => Choose(
+                                              currentindex: 3,
+                                            ),
+                                          ))
+                                        : Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    NotifiedChoose(
+                                                        currentindex: 1)))),
+                                  );
                             },
                           ).onError((error, stackTrace) {
                             throw (error.toString());
