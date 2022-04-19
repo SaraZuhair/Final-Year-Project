@@ -1,3 +1,4 @@
+import 'package:final_year_project/providers/recipes.dart';
 import 'package:final_year_project/screens/choose.dart';
 import 'package:final_year_project/screens/notifchoose.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context);
-
+      var r = Provider.of<Recipes>(context);
+  
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -156,6 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(30))),
                         child: const Text('Login'),
                         onPressed: () {
+                                
+                          
                           FirebaseAuth.instance
                               .signInWithEmailAndPassword(
                                   email: emailcontroller.text,

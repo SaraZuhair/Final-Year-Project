@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:final_year_project/providers/recipes.dart';
 import 'package:final_year_project/providers/schedule.dart';
 import 'package:final_year_project/providers/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,12 +25,14 @@ void main() async {
             id: 0),
       ),
       ChangeNotifierProvider<Themechanger>(
-          create: (_) => Themechanger(ThemeData.light())),
+          create: (_) => Themechanger(ThemeData.light(),),),
       ChangeNotifierProvider(
         create: (_) => Schedule([
           {'titleinfo': '', 'detailinfo': '', 'dateinfo': ''}
         ]),
-      )
+      ),
+
+      ChangeNotifierProvider(create: (_) => Recipes(),),
     ], child: const MyApp()),
   );
 }

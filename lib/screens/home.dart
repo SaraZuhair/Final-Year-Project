@@ -1,3 +1,4 @@
+import 'package:final_year_project/providers/recipes.dart';
 import 'package:final_year_project/providers/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 Themechanger theme=Provider.of<Themechanger>(context);
+  var recipe = Provider.of<Recipes>(context);
 
     return Scaffold(
 
@@ -144,7 +146,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black) )
         
                 ),
-            )
+            ),
         
              
             ],
@@ -154,15 +156,35 @@ Themechanger theme=Provider.of<Themechanger>(context);
 
 
 
-        body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-                       
-          ],
-        ),
-      ),
-      
+        //  body: 
+        // GridView.builder(
+        
+        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        //    itemBuilder: (BuildContext context, int index) {  
+        //      return Card(
+        //        color: Colors.amber,
+        //        child: Column(
+        //          children: [
+        //            Image.network("https://www.simplyrecipes.com/thmb/8caxM88NgxZjz-T2aeRW3xjhzBg=/2000x1125/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg"),
+        //           //  ListView.builder(itemBuilder: ((context, index) {
+                     
+        //           //  }))
+        //          ],
+        //        ),
+        //       //  child: ListView.builder(
+        //       //    itemBuilder: (BuildContext context, int index) { 
+        //       //        return ListTile(
+        //       //        title: recipe[index]['name'],
+        //       //      );
+                 
+        //       //     },
+                 
+        //       //  ),
+        //      );
+          //  }, 
+        
+          
+          // ), 
     );
   }
 }
