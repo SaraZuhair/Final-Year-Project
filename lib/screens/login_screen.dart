@@ -157,8 +157,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30))),
                         child: const Text('Login'),
-                        onPressed: () {
-                                
+                        onPressed: () async{
+                              await  r.getrecipes();
                           
                           FirebaseAuth.instance
                               .signInWithEmailAndPassword(
