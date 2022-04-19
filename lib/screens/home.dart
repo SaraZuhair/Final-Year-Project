@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:final_year_project/providers/recipes.dart';
 import 'package:final_year_project/providers/theme.dart';
 import 'package:final_year_project/screens/ingredients.dart';
@@ -14,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    print("o,imnuiby");
+    
 Themechanger theme=Provider.of<Themechanger>(context);
   var recipe = Provider.of<Recipes>(context);
 
@@ -32,18 +34,12 @@ Themechanger theme=Provider.of<Themechanger>(context);
                                   width: 100,
                                 ),
         
-       bottom:  PreferredSize(
-         preferredSize: const Size.fromHeight(48.0),
-         child: Column(
-         
-           children: const [
-                Text("Whats on your mind today", 
-                style:TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold
-                ) ,),
-               
-           ],
-         )
+       bottom: const PreferredSize(
+         preferredSize:  Size.fromHeight(48.0),
+         child: Text("Whats on your mind today", 
+         style:TextStyle(
+           fontSize: 20, fontWeight: FontWeight.bold
+         ) ,)
        ), 
            
       ),
@@ -122,7 +118,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
             ),
         
             SizedBox(
-              // margin: const EdgeInsets.only(bottom:70),
+     
               
                 width: MediaQuery.of(context).size.width*0.4,
                 child: ElevatedButton(
@@ -150,7 +146,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
                 ),
             ),
         
-             
+            
             ],
           ),
         ),
@@ -161,15 +157,23 @@ Themechanger theme=Provider.of<Themechanger>(context);
          body: 
         SizedBox(
           width: double.infinity,
-          height: 550,
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(
               children: [
           
                 Container(
                   width: MediaQuery.of(context).size.width*0.6,
+                  
                   child: TextField(
+                    decoration: const InputDecoration(labelText: "Search recipe",
                     
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:  BorderSide(
+                        color: Color(0xffFCB234),
+                      )
+                    )
+                    ),
                     
                     onChanged: (value)async {
                   
@@ -182,10 +186,10 @@ Themechanger theme=Provider.of<Themechanger>(context);
                     },
                   ),
                 ),
-                SizedBox(height: 100,),
+                SizedBox(height: MediaQuery.of(context).size.height*0.1,),
                 SizedBox(
-                  width: 300,
-                  height: 200,
+                  width: MediaQuery.of(context).size.width*0.9,
+                  height:  MediaQuery.of(context).size.height,
                   child: recipe.suggest.length==0? GridView.builder(
                   
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -200,12 +204,35 @@ Themechanger theme=Provider.of<Themechanger>(context);
                              );
                          }),
                          child: Card(
+                           color: const Color(0xffFCB234),
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                           color: Colors.amber,
                            child: Column(
                              children: [
-                               Image.network("https://www.simplyrecipes.com/thmb/8caxM88NgxZjz-T2aeRW3xjhzBg=/2000x1125/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg"),
-                              Text(recipe.food[index]['name']),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height*0.2,
+                              decoration: BoxDecoration(
+                              image:  DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(recipe.food[index]['image'],
+                               
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                               
+                              
+                              Text(recipe.food[index]['name'],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white
+                              ),
+                              ),
                              ],
                            ),
                                      
@@ -230,20 +257,36 @@ Themechanger theme=Provider.of<Themechanger>(context);
 
                          child: Card(
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                           color: Colors.amber,
+                           color: const Color(0xffFCB234),
                            child: Column(
                              children: [
-                               Image.network("https://www.simplyrecipes.com/thmb/8caxM88NgxZjz-T2aeRW3xjhzBg=/2000x1125/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-8f256746d649404baa36a44d271329bc.jpg"),
-                              Text(recipe.suggest[index]['name']),
+                               ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height*0.2,
+                              decoration: BoxDecoration(
+                              image:  DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(recipe.food[index]['image'],
+                               
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              Text(recipe.suggest[index]['name'],
+                               style: const TextStyle(
+                                fontWeight: FontWeight.bold,)
+                              ),
                              ],
                            ),
                                      
                          ),
                        );
                      }, 
-                  
-                    
-                    ),
+                  ),
                 ),
               ],
             ),

@@ -8,7 +8,7 @@ class Recipes extends ChangeNotifier
 {
   List<Map> food=  [];
   List<Map> suggest=[];
- 
+  
 
 
   Future getrecipes() async
@@ -26,6 +26,7 @@ class Recipes extends ChangeNotifier
       'name':content['name'],
       'calories':content['calories'],
       'ingredients':content['ingredients'],
+      'image':content['image']
     },);
     }
    );
