@@ -21,6 +21,8 @@ Themechanger theme=Provider.of<Themechanger>(context);
   var recipe = Provider.of<Recipes>(context);
 
     return Scaffold(
+     
+    
 
                 appBar: AppBar(
         toolbarHeight: 100,
@@ -88,6 +90,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
             ),
         
             SingleChildScrollView(
+           
               child: Container(
                 margin: const EdgeInsets.all(40),
                   width: MediaQuery.of(context).size.width*0.4,
@@ -161,7 +164,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
           child: SingleChildScrollView(
             child: Column(
               children: [
-          
+          SizedBox(  height: MediaQuery.of(context).size.height*0.05),
                 Container(
                   width: MediaQuery.of(context).size.width*0.6,
                   
@@ -175,7 +178,9 @@ Themechanger theme=Provider.of<Themechanger>(context);
                     )
                     ),
                     
-                    onChanged: (value)async {
+                    onChanged: (value)async { 
+                      imageCache.clearLiveImages();
+ imageCache.clear();
                   
                      await recipe.searchrecipe(value).then((value) {
                        setState(() {
@@ -191,7 +196,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
                   width: MediaQuery.of(context).size.width*0.9,
                   height:  MediaQuery.of(context).size.height,
                   child: recipe.suggest.length==0? GridView.builder(
-                  
+                  primary: false,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                     itemCount: recipe.food.length,
                     
@@ -242,20 +247,22 @@ Themechanger theme=Provider.of<Themechanger>(context);
                   
                     
                     ) : GridView.builder(
+                      primary: false,
                   
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                     itemCount: recipe.suggest.length,
                     
                      itemBuilder: (BuildContext context, int index) { 
                         
-                       return InkWell(
+                       return InkWell(key: UniqueKey(),
                          onTap: () {
+                          
                            Navigator.push(context, MaterialPageRoute(
                              builder: (_)=> Ingredients(food: recipe.suggest[index]),)
                              );
                          },
 
-                         child: Card(
+                         child: Card(  key: UniqueKey(),
                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                            color: const Color(0xffFCB234),
                            child: Column(
@@ -263,18 +270,22 @@ Themechanger theme=Provider.of<Themechanger>(context);
                                ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
+                            key: UniqueKey(),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height*0.2,
                               decoration: BoxDecoration(
                               image:  DecorationImage(
+                                
                               fit: BoxFit.fill,
-                              image: NetworkImage(recipe.food[index]['image'],
+                              image: NetworkImage(recipe.suggest[index]['image'],
+                              
                                
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
+                              
 
                               Text(recipe.suggest[index]['name'],
                                style: const TextStyle(

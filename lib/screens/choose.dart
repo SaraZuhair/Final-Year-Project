@@ -35,6 +35,7 @@ class _ChooseState extends State<Choose> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: screen[widget.currentindex],
 
             bottomNavigationBar: CurvedNavigationBar(
