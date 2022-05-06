@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:final_year_project/providers/recipes.dart';
 import 'package:final_year_project/providers/theme.dart';
 import 'package:final_year_project/screens/ingredients.dart';
+import 'package:final_year_project/screens/searchfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,9 @@ Themechanger theme=Provider.of<Themechanger>(context);
                 child: ElevatedButton(
                   
                 
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SearchFriend()));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -180,7 +183,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
                     
                     onChanged: (value)async { 
                       imageCache.clearLiveImages();
- imageCache.clear();
+                      imageCache.clear();
                   
                      await recipe.searchrecipe(value).then((value) {
                        setState(() {
@@ -278,8 +281,7 @@ Themechanger theme=Provider.of<Themechanger>(context);
                                 
                               fit: BoxFit.fill,
                               image: NetworkImage(recipe.suggest[index]['image'],
-                              
-                               
+                                                           
                                       ),
                                     ),
                                   ),
@@ -287,9 +289,10 @@ Themechanger theme=Provider.of<Themechanger>(context);
                               ),
                               
 
-                              Text(recipe.suggest[index]['name'],
+                               Text(recipe.suggest[index]['name'],
                                style: const TextStyle(
-                                fontWeight: FontWeight.bold,)
+                               fontWeight: FontWeight.bold,
+                               )
                               ),
                              ],
                            ),

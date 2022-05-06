@@ -1,23 +1,22 @@
-import 'package:final_year_project/screens/searchfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/theme.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({ Key? key }) : super(key: key);
+
+class SearchFriend extends StatefulWidget {
+  const SearchFriend({ Key? key }) : super(key: key);
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<SearchFriend> createState() => _SearchFriendState();
 }
 
-class _ChatState extends State<Chat> {
+class _SearchFriendState extends State<SearchFriend> {
   @override
   Widget build(BuildContext context) {
     Themechanger theme=Provider.of<Themechanger>(context);
     return Scaffold(
-
-          appBar: AppBar(
+      
+       appBar: AppBar(
         toolbarHeight: 100,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))
@@ -34,21 +33,18 @@ class _ChatState extends State<Chat> {
          child: Column(
          
            children: const [
-                Text("Notify your family and friends", 
+                Text("Add contacts into your contacts list", 
                 style:TextStyle(
                   fontSize: 20, fontWeight: FontWeight.bold
                 ) ,),
-                Text("about your needs",
-                style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold
-                ),
-                ),
+                
            ],
          )
        ),     
       ),
 
-     endDrawer:  Drawer(
+
+      endDrawer:  Drawer(
         
         child: SingleChildScrollView(
           child: Column(
@@ -158,10 +154,44 @@ class _ChatState extends State<Chat> {
           ),
         ),
       ),
-      
-      body: SingleChildScrollView(
-      
-      ),
+
+
+    body: Column(
+      children:  [
+        SizedBox(
+          height: MediaQuery.of(context).size.height *0.02,
+        ),
+        Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width*0.7,
+            child: const TextField(
+                 decoration: InputDecoration(labelText: "Search for friends",
+                 
+                 enabledBorder: OutlineInputBorder(
+                   borderSide:  BorderSide(
+                     color: Color(0xffFCB234),
+                   )
+                 )
+                 ),
+                 
+                 // onChanged: (value)async { 
+                 
+               
+                 //  await recipe.searchrecipe(value).then((value) {
+                 //    setState(() {
+                      
+                 //    });
+                    
+                 //  });                 
+                 // },
+                 
+               ),
+          ),
+        )
+      ],
+    ),
+     
+
     );
   }
 }

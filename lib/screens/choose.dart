@@ -35,13 +35,13 @@ class _ChooseState extends State<Choose> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      // extendBody: true,
       body: screen[widget.currentindex],
 
             bottomNavigationBar: CurvedNavigationBar(
               index: widget.currentindex,
         
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0x00000000),
         items: const <Widget>[
         Icon(Icons.home,size: 30,),
         Icon(Icons.calendar_month,size: 30,),
@@ -49,7 +49,7 @@ class _ChooseState extends State<Choose> {
         Icon(Icons.person,size: 30,),
       ],
       color: const Color(0xffFCB234),
-      height: 70,
+      height: MediaQuery.of(context).size.height*0.1,
       animationDuration: const Duration(
         milliseconds: 300,
       ),

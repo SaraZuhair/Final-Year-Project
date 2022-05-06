@@ -1,5 +1,6 @@
 import 'package:final_year_project/features/add.dart';
 import 'package:final_year_project/providers/theme.dart';
+import 'package:final_year_project/screens/searchfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -56,7 +57,9 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
                 margin: const EdgeInsets.all(70),
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SearchFriend()));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [Icon(Icons.add), Text("Add Friend")],
@@ -80,8 +83,8 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
-              SingleChildScrollView(
-                child: Container(
+              // SingleChildScrollView(
+               Container(
                   margin: const EdgeInsets.all(40),
                   width: MediaQuery.of(context).size.width * 0.4,
                   child: ElevatedButton(
@@ -100,7 +103,7 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
                             const Color(0xffFCB234),
                           ))),
                 ),
-              ),
+              
               Container(
                 // margin: const EdgeInsets.only(bottom:70),
                 width: MediaQuery.of(context).size.width * 0.4,
@@ -123,54 +126,58 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                TableCalendar(
-                  firstDay: DateTime.now(),
-                  lastDay: DateTime.utc(2100),
-                  focusedDay: DateTime.now(),
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  //on day selected function
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                  headerStyle: HeaderStyle(
-                    decoration: const BoxDecoration(),
-                    titleTextStyle: const TextStyle(
-                        color: Colors.orange, fontWeight: FontWeight.bold),
-                    formatButtonDecoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    formatButtonTextStyle: const TextStyle(
-                        color: Colors.orange, fontWeight: FontWeight.bold),
-                    leftChevronIcon: const Icon(
-                      Icons.chevron_left,
-                      color: Colors.orange,
-                    ),
-                    rightChevronIcon: const Icon(
-                      Icons.chevron_right,
-                      color: Colors.orange,
-                    ),
-                  ),
-                ),
-              ],
+
+
+
+
+ 
+      body: 
+      
+         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
             ),
+             
+               TableCalendar(
+                 firstDay: DateTime.now(),
+                 lastDay: DateTime.utc(2100),
+                 focusedDay: DateTime.now(),
+                 selectedDayPredicate: (day) {
+                   return isSameDay(_selectedDay, day);
+                 },
+                 
+                 onDaySelected: (selectedDay, focusedDay) {
+                   setState(() {
+                     _selectedDay = selectedDay;
+                     _focusedDay = focusedDay;
+                   }
+                 );
+                 },
+                 headerStyle: HeaderStyle(
+                   decoration: const BoxDecoration(),
+                   titleTextStyle: const TextStyle(
+                       color: Colors.orange, fontWeight: FontWeight.bold),
+                   formatButtonDecoration: BoxDecoration(
+                     border: Border.all(color: Colors.orange),
+                     borderRadius: BorderRadius.circular(20),
+                   ),
+                   formatButtonTextStyle: const TextStyle(
+                       color: Colors.orange, fontWeight: FontWeight.bold),
+                   leftChevronIcon: const Icon(
+                     Icons.chevron_left,
+                     color: Colors.orange,
+                   ),
+                   rightChevronIcon: const Icon(
+                     Icons.chevron_right,
+                     color: Colors.orange,
+                   ),
+                 ),
+               ),  
+            ],
           ),
-        ],
-      ),
+        //  ),
       floatingActionButton: FloatingActionButton(
           child: const Icon(
             Icons.add,
@@ -180,6 +187,7 @@ class _ScheduleinfoState extends State<Scheduleinfo> {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => Add(date: _selectedDay)));
           }),
+     
     );
   }
 }

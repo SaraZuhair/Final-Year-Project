@@ -1,3 +1,4 @@
+import 'package:final_year_project/screens/searchfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme.dart';
@@ -53,7 +54,9 @@ class _ProfileState extends State<Profile> {
                 margin: const EdgeInsets.all(70),
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SearchFriend()));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [Icon(Icons.add), Text("Add Friend")],
