@@ -59,43 +59,50 @@ class UserProvider extends ChangeNotifier {
         
       });
     });
-
- 
-   
     notifyListeners();
   }
 
- Future<void> searchUser( String name) async {
+
+
+
+
+
+Future<void> searchUser( String name) async {
 result=[];
 name=name.trim();
+result.clear();
   var  db = FirebaseFirestore.instance;
  await db.collection("UserData").get().then((event) {
   for (var doc in event.docs) {
     // print("${doc.id} => ${doc.data()}");
 var temp =doc.data()['name'] as String;
   if(temp.contains(name) && name !=' ' && name !=''&& temp != this.name && doc.data()['usertype']=='Notified')
-  {
-    result.add(
-      {
-        "name": temp,
-        "id": doc.id, 
+        {
+          result.add(
+            {
+              "name": temp,
+              "id": doc.id, 
+            }
+          );
+        }
       }
-
-    );
-
-  }
-  }
-});
+    }
+  );
+}
 
 
-  }
+
+
+
+
 Future <void > addfriend(friendInfo) async{
-    var  db = FirebaseFirestore.instance;
+  var  db = FirebaseFirestore.instance;
 
 db
   .collection('UserData').doc(docID).collection('friends').add({'name':friendInfo['name'],'id':friendInfo['id']});
 friends.add({'name':friendInfo['name'],'id':friendInfo['id']});
 }
+
 
   
 }

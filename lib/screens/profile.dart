@@ -286,7 +286,22 @@ class _ProfileState extends State<Profile> {
                      width: MediaQuery.of(context).size.width,
                      child: Card(
                        child: ListTile(
-                         title: Text(user.friends[index]['name']),
+                         leading:const SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: ClipOval(
+                        child: Icon(
+                          Icons.contacts ,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ), 
+                         title: Center(child: Text(user.friends[index]['name'],
+                         style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                         )),
                        ),
                      ),
                    );

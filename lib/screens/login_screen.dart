@@ -181,9 +181,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                             MaterialPageRoute(
                                                 builder: ((context) =>
                                                     NotifiedChoose(
-                                                        currentindex: 1)))),
-                                  );
-                            },
+                                                        currentindex: 1)
+                                                        )
+                                                      )
+                                                    ),
+                                                  );
+                                                },
                           ).onError((error, stackTrace) {
                             throw (error.toString());
                           });

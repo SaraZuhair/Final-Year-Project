@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:final_year_project/screens/notifiedchat.dart';
-import 'package:final_year_project/screens/profile.dart';
+import 'package:final_year_project/screens/notiprofile.dart';
 import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class NotifiedChoose extends StatefulWidget {
@@ -18,7 +18,7 @@ class _NotifiedChooseState extends State<NotifiedChoose> {
 
 List screen=[
      const NotifiedChat(),
-     const Profile( ),
+     const Notifiedprofile( ),
   ];
 
 

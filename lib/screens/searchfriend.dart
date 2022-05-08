@@ -123,8 +123,7 @@ class _SearchFriendState extends State<SearchFriend> {
            
 
 
-            Container(
-              // margin: const EdgeInsets.only(bottom:70),
+            SizedBox(
                 width: MediaQuery.of(context).size.width*0.4,
                 child: ElevatedButton(
                   
@@ -149,9 +148,7 @@ class _SearchFriendState extends State<SearchFriend> {
                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black) )
         
                 ),
-            )
-        
-             
+              )
             ],
           ),
         ),
@@ -159,7 +156,6 @@ class _SearchFriendState extends State<SearchFriend> {
 
 
     body: Column(
-      
       children:  [
         SizedBox(
           height: MediaQuery.of(context).size.height *0.02,
@@ -168,8 +164,7 @@ class _SearchFriendState extends State<SearchFriend> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width*0.7,
             child:  TextField(
-                 decoration: const InputDecoration(labelText: "Search for friends",
-                 
+                 decoration: const InputDecoration(labelText: "Search for friends",                
                  enabledBorder: OutlineInputBorder(
                    borderSide:  BorderSide(
                      color: Color(0xffFCB234),
@@ -191,28 +186,32 @@ class _SearchFriendState extends State<SearchFriend> {
         ),
         Expanded(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 50),
+            margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             
             child: ListView.builder(
             
             itemCount: user.result.length,
               itemBuilder:(context, index) {
-                return ListTile(
-            title: Text(user.result[index]['name']),
-            trailing: IconButton(icon: const Icon(Icons.add), 
-            onPressed: () {
-                user.addfriend(user.result[index]);
-              },
+                return Card(
+                  child: ListTile(
+                            title: Text(user.result[index]['name']),
+                            trailing: 
+                            ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: const Color(0xffFCB234),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30))), 
+                                  onPressed: () { 
+                                    user.addfriend(user.result[index]);
+                                   }, child: const Text("Add Friend"),)
+                   ),
+                );
+                } 
               ),
-        );
-            
-              } ),
-          ),
-        )
-      ],
-    ),
-     
-
-    );
-  }
+            ),
+          )
+       ],
+     ),
+   );
+ }
 }
