@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme.dart';
+import '../providers/userprv.dart';
 
 
 class SearchFriend extends StatefulWidget {
@@ -14,6 +15,7 @@ class _SearchFriendState extends State<SearchFriend> {
   @override
   Widget build(BuildContext context) {
     Themechanger theme=Provider.of<Themechanger>(context);
+    var user = Provider.of<UserProvider>(context);
     return Scaffold(
       
        appBar: AppBar(
@@ -157,6 +159,7 @@ class _SearchFriendState extends State<SearchFriend> {
 
 
     body: Column(
+      
       children:  [
         SizedBox(
           height: MediaQuery.of(context).size.height *0.02,
@@ -164,8 +167,8 @@ class _SearchFriendState extends State<SearchFriend> {
         Center(
           child: SizedBox(
             width: MediaQuery.of(context).size.width*0.7,
-            child: const TextField(
-                 decoration: InputDecoration(labelText: "Search for friends",
+            child:  TextField(
+                 decoration: const InputDecoration(labelText: "Search for friends",
                  
                  enabledBorder: OutlineInputBorder(
                    borderSide:  BorderSide(
@@ -174,18 +177,36 @@ class _SearchFriendState extends State<SearchFriend> {
                  )
                  ),
                  
-                 // onChanged: (value)async { 
+                 onChanged: (value)async { 
                  
-               
-                 //  await recipe.searchrecipe(value).then((value) {
-                 //    setState(() {
-                      
-                 //    });
-                    
-                 //  });                 
-                 // },
+              await user.searchUser(value);
+              setState(() {
+                
+              });
+                  
+                 },
                  
                ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 50),
+            
+            child: ListView.builder(
+            
+            itemCount: user.result.length,
+              itemBuilder:(context, index) {
+                return ListTile(
+            title: Text(user.result[index]['name']),
+            trailing: IconButton(icon: const Icon(Icons.add), 
+            onPressed: () {
+                user.addfriend(user.result[index]);
+              },
+              ),
+        );
+            
+              } ),
           ),
         )
       ],

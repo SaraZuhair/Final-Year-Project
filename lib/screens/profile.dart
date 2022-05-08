@@ -275,22 +275,23 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
-                const Card(
-                  elevation: 2,
-                  child: ListTile(
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: ClipOval(
-                        child: Icon(
-                          Icons.contact_phone,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    // title: ,
-                  ),
-                ),
+               Container(
+                 height: 75,
+                 child: ListView.builder(
+                 scrollDirection: Axis.horizontal,
+                   itemCount: user.friends.length,
+                   itemBuilder: (context,index){
+                   
+                   return Container(
+                     width: MediaQuery.of(context).size.width,
+                     child: Card(
+                       child: ListTile(
+                         title: Text(user.friends[index]['name']),
+                       ),
+                     ),
+                   );
+                 }),
+               )
               ],
             ),
           )
