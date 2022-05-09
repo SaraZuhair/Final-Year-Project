@@ -54,7 +54,8 @@ class _ProfileState extends State<Profile> {
                 margin: const EdgeInsets.all(70),
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      await user.getrequests();
                       Navigator.of(context).push(MaterialPageRoute(builder: (_)=> SearchFriend()));
                     },
                     child: Row(

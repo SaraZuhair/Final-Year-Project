@@ -202,7 +202,14 @@ class _SearchFriendState extends State<SearchFriend> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30))), 
                                   onPressed: () { 
-                                    user.addfriend(user.result[index]);
+                                    user.addfriend(user.result[index]).then((value) => {
+                                      if(value){
+                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("already sent request to this user"),
+                duration: Duration(milliseconds: 500),
+              ))
+                                      }
+                                    });
                                    }, child: const Text("Add Friend"),)
                    ),
                 );

@@ -13,6 +13,7 @@ class UserProvider extends ChangeNotifier {
   List<Map> result=[];
   List<Map> friends=[];
   var docID='';
+  List <Map> requests=[];
 
   UserProvider({
     required this.name,
@@ -71,20 +72,32 @@ Future<void> searchUser( String name) async {
 result=[];
 name=name.trim();
 result.clear();
+var yesFriends = false;
   var  db = FirebaseFirestore.instance;
  await db.collection("UserData").get().then((event) {
   for (var doc in event.docs) {
     // print("${doc.id} => ${doc.data()}");
 var temp =doc.data()['name'] as String;
+
+
   if(temp.contains(name) && name !=' ' && name !=''&& temp != this.name && doc.data()['usertype']=='Notified')
         {
-          result.add(
+            for (var i = 0; i < friends.length; i++) {
+              if(friends[i]['id'] == doc.id){
+                  yesFriends = true;
+              }
+            }
+          if(!yesFriends){
+            result.add(
             {
               "name": temp,
               "id": doc.id, 
-            }
-          );
+            } );
+          }
+          
+         
         }
+        yesFriends = false;
       }
     }
   );
@@ -95,14 +108,122 @@ var temp =doc.data()['name'] as String;
 
 
 
-Future <void > addfriend(friendInfo) async{
+Future <bool > addfriend(friendInfo) async{
   var  db = FirebaseFirestore.instance;
+  
+  bool have =false;
 
-db
-  .collection('UserData').doc(docID).collection('friends').add({'name':friendInfo['name'],'id':friendInfo['id']});
-friends.add({'name':friendInfo['name'],'id':friendInfo['id']});
+requests.forEach((element) {
+  print(element['id']);
+  print(friendInfo['id']);
+
+  if(element['id'] == friendInfo['id']){
+    
+have = true;
+  }
+ });
+
+if(!have){
+  db
+  .collection('UserData').doc(friendInfo['id']).collection('requestfriend').add({'name': name,'id':docID});
+  requests.add({'name': friendInfo['name'],'id':friendInfo['id']});
+  db
+  .collection('UserData').doc(docID).collection('requestfriend').add({'name': friendInfo['name'],'id':friendInfo['id']});
+  
 }
 
 
   
+
+
+return have;
+}
+
+
+Future <void> getrequests () async{
+  requests=[];
+  // requests.clear();
+  var  db = FirebaseFirestore.instance;
+
+await db.collection("UserData").doc(docID).collection('requestfriend').get().then((event) {
+  for (var doc in event.docs) {
+ 
+requests.add({'name': doc.data()['name'],'id':doc.data()['id']});     //doc.data returns a json always
+    
+}
+});
+}
+
+
+
+Future Accept(req)async {
+   var  db = FirebaseFirestore.instance;
+   db
+  .collection('UserData').doc(docID).collection('friends').add({'name':req['name'],'id':req['id']});
+  db
+  .collection('UserData').doc(req['id']).collection('friends').add({'name':name,'id':docID});
+
+
+  await db.collection("UserData").doc(docID).collection('requestfriend').get().then((event) {
+  for (var doc in event.docs) {
+ 
+    if(doc.data()['id'] == req['id']){
+        db
+          .collection('UserData').doc(docID).collection('requestfriend').doc(doc.id).delete();
+    }
+    
+}
+});
+
+  await db.collection("UserData").doc(req['id']).collection('requestfriend').get().then((event) {
+  for (var doc in event.docs) {
+ 
+    if(doc.data()['id'] ==docID){
+        db
+          .collection('UserData').doc(req['id']).collection('requestfriend').doc(doc.id).delete();
+    }
+    
+}
+});
+
+
+  friends.add({'name':req['name'], 'id': req['id']});
+}
+
+
+
+Future Delete(req)async{
+  var  db = FirebaseFirestore.instance;
+
+
+  await db.collection("UserData").doc(docID).collection('requestfriend').get().then((event) {
+  for (var doc in event.docs) {
+ 
+    if(doc.data()['id'] == req['id']){
+        db
+          .collection('UserData').doc(docID).collection('requestfriend').doc(doc.id).delete();
+    }
+    
+}
+});
+ await db.collection("UserData").doc(req['id']).collection('requestfriend').get().then((event) {
+  for (var doc in event.docs) {
+ 
+    if(doc.data()['id'] ==docID){
+        db
+          .collection('UserData').doc(req['id']).collection('requestfriend').doc(doc.id).delete();
+    }
+    
+}
+});
+
+
+ 
+
+  // requests.removeWhere((element) => element['id'] == req['id']);
+
+}
+
+
+
 }

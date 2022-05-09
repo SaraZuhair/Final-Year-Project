@@ -55,8 +55,12 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
                 margin: const EdgeInsets.all(70),
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      await user.getrequests();
                       Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ViewRequests()));
+
+
+                     
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +74,7 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
                         )),
                         backgroundColor: MaterialStateProperty.all<Color>(
                           const Color(0xffFCB234),
-                        ))),
+                        ),),),
               ),
               const SizedBox(
                 height: 200,
