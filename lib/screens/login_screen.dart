@@ -1,5 +1,6 @@
 import 'package:final_year_project/providers/recipes.dart';
 import 'package:final_year_project/screens/choose.dart';
+import 'package:final_year_project/screens/forgotpass.dart';
 import 'package:final_year_project/screens/notifchoose.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -143,8 +144,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const RegisterScreen()));
                           },
                         ),
+
+                        
                       ],
                     ),
+                    const SizedBox(
+                          height: 3,
+                        ),
+
+                        GestureDetector(
+                          child: const Text(
+                            "Forgot Password",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.orange),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const Forgot_Password()));
+                          },
+                        ),
                     const SizedBox(
                       height: 10,
                     ),

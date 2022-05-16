@@ -205,9 +205,9 @@ class _SearchFriendState extends State<SearchFriend> {
                                     user.addfriend(user.result[index]).then((value) => {
                                       if(value){
                                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("already sent request to this user"),
-                duration: Duration(milliseconds: 500),
-              ))
+                                        content: Text("already sent request to this user"),
+                                        duration: Duration(milliseconds: 500),
+                                      ))
                                       }
                                     });
                                    }, child: const Text("Add Friend"),)
