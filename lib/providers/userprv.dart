@@ -14,8 +14,11 @@ class UserProvider extends ChangeNotifier {
   List<Map> friends=[];
   var docID='';
   List <Map> requests=[];
+  String  message;
+  List chats=[];
 
   UserProvider({
+    required this.message,
     required this.name,
     required this.age,
     required this.email,
@@ -119,18 +122,18 @@ requests.forEach((element) {
 
   if(element['id'] == friendInfo['id']){
     
-have = true;
-  }
- });
+    have = true;
+      }
+    });
 
-if(!have){
-  db
-  .collection('UserData').doc(friendInfo['id']).collection('requestfriend').add({'name': name,'id':docID});
-  requests.add({'name': friendInfo['name'],'id':friendInfo['id']});
-  db
-  .collection('UserData').doc(docID).collection('requestfriend').add({'name': friendInfo['name'],'id':friendInfo['id']});
-  
-}
+    if(!have){
+      db
+      .collection('UserData').doc(friendInfo['id']).collection('requestfriend').add({'name': name,'id':docID});
+      requests.add({'name': friendInfo['name'],'id':friendInfo['id']});
+      db
+      .collection('UserData').doc(docID).collection('requestfriend').add({'name': friendInfo['name'],'id':friendInfo['id']});
+      
+    }
 
 
   
@@ -170,10 +173,10 @@ Future Accept(req)async {
     if(doc.data()['id'] == req['id']){
         db
           .collection('UserData').doc(docID).collection('requestfriend').doc(doc.id).delete();
+     }  
     }
-    
-}
-});
+  }
+);
 
   await db.collection("UserData").doc(req['id']).collection('requestfriend').get().then((event) {
   for (var doc in event.docs) {
@@ -225,5 +228,65 @@ Future Delete(req)async{
 }
 
 
+      Future getfriendlist(req)async{
+      var  db = FirebaseFirestore.instance;
+
+      await db.collection('UserData').doc(req['id']).collection('requestfriend').get().then((value) {
+      for (var doc in value.docs) {
+        print(value);
+      }
+      });
+      }
+
+
+
+  Future<void> sendmessage(req, message) async {
+
+
+
+     print(message);
+
+     chats.add(message);
+
+      print(chats);
+
+    FirebaseFirestore
+    .instance
+      .collection('UserData')
+        .doc(docID)
+          .collection('friends')
+            .doc()
+              .collection('sentmessage')
+                .add({'message': chats});
+
+
+
+      FirebaseFirestore
+        .instance
+          .collection('UserData')
+            .doc(req)
+              .collection('friends')
+                .doc()
+                  .collection('getmessage')
+                    .add({'message':chats});
+
+
+
+
+               
+
+  }
+
+
+  Future getmessages() async{
+    await FirebaseFirestore.instance.collection('UserData').doc(docID).collection('friends').doc()
+.collection('sentmessage').get().then((value) {
+for (var doc in value.docs) {
+  print(value);
+}
+});;
+  }
+
+  
 
 }

@@ -1,7 +1,8 @@
+// ignore_for_file: camel_case_types
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 
 class Forgot_Password extends StatefulWidget {
   const Forgot_Password({Key? key}) : super(key: key);
@@ -39,6 +40,7 @@ void dispose(){
       Navigator.of(context).popUntil((route) => route.isFirst);
     
       } on FirebaseAuthException catch (e) {
+        // ignore: avoid_print
         print(e);
       }
       

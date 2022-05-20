@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/theme.dart';
+import '../providers/userprv.dart';
 
 class NotifiedChat extends StatefulWidget {
   const NotifiedChat({ Key? key }) : super(key: key);
@@ -13,6 +15,7 @@ class NotifiedChat extends StatefulWidget {
 class _NotifiedChatState extends State<NotifiedChat> {
   @override
   Widget build(BuildContext context) {
+      var user = Provider.of<UserProvider>(context);
     Themechanger theme=Provider.of<Themechanger>(context);
     return Scaffold(
      appBar: AppBar(
@@ -146,6 +149,40 @@ class _NotifiedChatState extends State<NotifiedChat> {
              
             ],
           ),
+        ),
+      ),
+
+
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: Row(
+                children: [
+                  SingleChildScrollView(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.6,
+                      width: MediaQuery.of(context).size.width*0.6,
+                      child: ListView.builder(
+                        
+                       itemCount: user.chats.length,
+                       itemBuilder: ((context, index) {
+                         return Card(
+                           child: ListTile(
+                             title: Text(user.chats[index]),
+                           ),
+                         );
+                       })),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

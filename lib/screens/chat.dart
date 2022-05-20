@@ -1,8 +1,11 @@
+import 'package:final_year_project/screens/messaging.dart';
 import 'package:final_year_project/screens/searchfriend.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/theme.dart';
+import '../providers/userprv.dart';
 
 class Chat extends StatefulWidget {
   const Chat({ Key? key }) : super(key: key);
@@ -15,6 +18,7 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     Themechanger theme=Provider.of<Themechanger>(context);
+     var user = Provider.of<UserProvider>(context);
     return Scaffold(
 
           appBar: AppBar(
@@ -151,16 +155,48 @@ class _ChatState extends State<Chat> {
                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black) )
         
                 ),
-            )
-        
-             
+               )
             ],
           ),
         ),
       ),
       
-      body: SingleChildScrollView(
-      
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: SingleChildScrollView(
+        
+        child: Column(
+          children: [
+            const Center(
+              child: Text("Start Chatting With Your Friends", 
+              style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+            ),
+            const SizedBox(height: 10,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                itemCount: user.friends.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 2,
+                    child: ListTile(
+                      
+                        title: Text(user.friends[index]['name'], style: const TextStyle(
+                          fontWeight: FontWeight.bold
+                        ),),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>  Message_page(user.friends[index]['id'],user.friends[index]['name'])));
+                        },
+                    ),
+                  );
+                } ),
+            )
+          ],
+        ),
+        ),
       ),
     );
   }

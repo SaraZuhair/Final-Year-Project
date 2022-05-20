@@ -289,9 +289,9 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
                    
                    return Container(
                      width: MediaQuery.of(context).size.width,
-                     child: const Card(
+                     child:  Card(
                        child: ListTile(
-                         leading:SizedBox(
+                         leading:const SizedBox(
                       height: 50,
                       width: 50,
                       child: ClipOval(
@@ -301,12 +301,13 @@ class _NotifiedprofileState extends State<Notifiedprofile> {
                         ),
                       ),
                     ), 
-                        //  title: Center(child: Text(user.friends[index]['name'],
-                        //  style: const TextStyle(
-                        //   fontSize: 15,
-                        //   fontWeight: FontWeight.bold,
-                        // ),
-                        //  )),
+                         title: Center(child: Text(user.friends[index]['name'],
+                         style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                         )
+                         ),
                        ),
                      ),
                    );

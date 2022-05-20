@@ -16,6 +16,7 @@ void main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider(
         create: (_) => UserProvider(
+          message: '',
             address: '',
             age: '',
             email: '',
